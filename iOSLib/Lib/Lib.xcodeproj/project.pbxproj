@@ -1,0 +1,310 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CE3D18FD163ED030002CC447 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3D18FC163ED030002CC447 /* UIKit.framework */; };
+		CE3D18FF163ED030002CC447 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3D18FE163ED030002CC447 /* Foundation.framework */; };
+		CE3D1901163ED030002CC447 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3D1900163ED030002CC447 /* CoreGraphics.framework */; };
+		CE3D1907163ED030002CC447 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE3D1905163ED030002CC447 /* InfoPlist.strings */; };
+		CE3D1909163ED030002CC447 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3D1908163ED030002CC447 /* main.m */; };
+		CE3D190D163ED030002CC447 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3D190C163ED030002CC447 /* AppDelegate.m */; };
+		CE3D190F163ED031002CC447 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3D190E163ED030002CC447 /* Default.png */; };
+		CE3D1911163ED031002CC447 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3D1910163ED031002CC447 /* Default@2x.png */; };
+		CE3D1913163ED031002CC447 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3D1912163ED031002CC447 /* Default-568h@2x.png */; };
+		CE3D1928163F0A37002CC447 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3D1927163F0A37002CC447 /* QuartzCore.framework */; };
+		CE588181164781DF001192A1 /* CardexView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE58817E164781DF001192A1 /* CardexView.m */; };
+		CE588182164781DF001192A1 /* CardexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE588180164781DF001192A1 /* CardexViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CE3D18F8163ED030002CC447 /* Lib.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lib.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE3D18FC163ED030002CC447 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CE3D18FE163ED030002CC447 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CE3D1900163ED030002CC447 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CE3D1904163ED030002CC447 /* Lib-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Lib-Info.plist"; sourceTree = "<group>"; };
+		CE3D1906163ED030002CC447 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CE3D1908163ED030002CC447 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CE3D190A163ED030002CC447 /* Lib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lib-Prefix.pch"; sourceTree = "<group>"; };
+		CE3D190B163ED030002CC447 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CE3D190C163ED030002CC447 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CE3D190E163ED030002CC447 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		CE3D1910163ED031002CC447 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CE3D1912163ED031002CC447 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		CE3D1927163F0A37002CC447 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CE58817C164781DF001192A1 /* Cardex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cardex.h; sourceTree = "<group>"; };
+		CE58817D164781DF001192A1 /* CardexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardexView.h; sourceTree = "<group>"; };
+		CE58817E164781DF001192A1 /* CardexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardexView.m; sourceTree = "<group>"; };
+		CE58817F164781DF001192A1 /* CardexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardexViewController.h; sourceTree = "<group>"; };
+		CE588180164781DF001192A1 /* CardexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardexViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CE3D18F5163ED030002CC447 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE3D1928163F0A37002CC447 /* QuartzCore.framework in Frameworks */,
+				CE3D18FD163ED030002CC447 /* UIKit.framework in Frameworks */,
+				CE3D18FF163ED030002CC447 /* Foundation.framework in Frameworks */,
+				CE3D1901163ED030002CC447 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CE3D18ED163ED030002CC447 = {
+			isa = PBXGroup;
+			children = (
+				CE3D1902163ED030002CC447 /* Lib */,
+				CE3D18FB163ED030002CC447 /* Frameworks */,
+				CE3D18F9163ED030002CC447 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CE3D18F9163ED030002CC447 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CE3D18F8163ED030002CC447 /* Lib.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CE3D18FB163ED030002CC447 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE3D1927163F0A37002CC447 /* QuartzCore.framework */,
+				CE3D18FC163ED030002CC447 /* UIKit.framework */,
+				CE3D18FE163ED030002CC447 /* Foundation.framework */,
+				CE3D1900163ED030002CC447 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE3D1902163ED030002CC447 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				CE58817B164781DF001192A1 /* Cardex */,
+				CE3D190B163ED030002CC447 /* AppDelegate.h */,
+				CE3D190C163ED030002CC447 /* AppDelegate.m */,
+				CE3D1903163ED030002CC447 /* Supporting Files */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		CE3D1903163ED030002CC447 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CE3D1904163ED030002CC447 /* Lib-Info.plist */,
+				CE3D1905163ED030002CC447 /* InfoPlist.strings */,
+				CE3D1908163ED030002CC447 /* main.m */,
+				CE3D190A163ED030002CC447 /* Lib-Prefix.pch */,
+				CE3D190E163ED030002CC447 /* Default.png */,
+				CE3D1910163ED031002CC447 /* Default@2x.png */,
+				CE3D1912163ED031002CC447 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CE58817B164781DF001192A1 /* Cardex */ = {
+			isa = PBXGroup;
+			children = (
+				CE58817C164781DF001192A1 /* Cardex.h */,
+				CE58817D164781DF001192A1 /* CardexView.h */,
+				CE58817E164781DF001192A1 /* CardexView.m */,
+				CE58817F164781DF001192A1 /* CardexViewController.h */,
+				CE588180164781DF001192A1 /* CardexViewController.m */,
+			);
+			path = Cardex;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CE3D18F7163ED030002CC447 /* Lib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE3D1916163ED031002CC447 /* Build configuration list for PBXNativeTarget "Lib" */;
+			buildPhases = (
+				CE3D18F4163ED030002CC447 /* Sources */,
+				CE3D18F5163ED030002CC447 /* Frameworks */,
+				CE3D18F6163ED030002CC447 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Lib;
+			productName = Lib;
+			productReference = CE3D18F8163ED030002CC447 /* Lib.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CE3D18EF163ED030002CC447 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = Citigroup;
+			};
+			buildConfigurationList = CE3D18F2163ED030002CC447 /* Build configuration list for PBXProject "Lib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CE3D18ED163ED030002CC447;
+			productRefGroup = CE3D18F9163ED030002CC447 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CE3D18F7163ED030002CC447 /* Lib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CE3D18F6163ED030002CC447 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE3D1907163ED030002CC447 /* InfoPlist.strings in Resources */,
+				CE3D190F163ED031002CC447 /* Default.png in Resources */,
+				CE3D1911163ED031002CC447 /* Default@2x.png in Resources */,
+				CE3D1913163ED031002CC447 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CE3D18F4163ED030002CC447 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE3D1909163ED030002CC447 /* main.m in Sources */,
+				CE3D190D163ED030002CC447 /* AppDelegate.m in Sources */,
+				CE588181164781DF001192A1 /* CardexView.m in Sources */,
+				CE588182164781DF001192A1 /* CardexViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CE3D1905163ED030002CC447 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CE3D1906163ED030002CC447 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CE3D1914163ED031002CC447 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		CE3D1915163ED031002CC447 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CE3D1917163ED031002CC447 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Lib/Lib-Prefix.pch";
+				INFOPLIST_FILE = "Lib/Lib-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CE3D1918163ED031002CC447 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Lib/Lib-Prefix.pch";
+				INFOPLIST_FILE = "Lib/Lib-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CE3D18F2163ED030002CC447 /* Build configuration list for PBXProject "Lib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE3D1914163ED031002CC447 /* Debug */,
+				CE3D1915163ED031002CC447 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE3D1916163ED031002CC447 /* Build configuration list for PBXNativeTarget "Lib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE3D1917163ED031002CC447 /* Debug */,
+				CE3D1918163ED031002CC447 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CE3D18EF163ED030002CC447 /* Project object */;
+}
