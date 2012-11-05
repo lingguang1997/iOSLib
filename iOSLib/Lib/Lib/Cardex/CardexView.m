@@ -18,7 +18,7 @@ static const CGFloat SPEED_UP_FACTOR = 1.0f;
 static const NSUInteger DEFAULT_FIRST_ITEM_VIEW_INDEX = 0;
 static const CGFloat DECELERATION_FACTOR = 30.0f;
 
-
+static const NSUInteger DEFAULT_ITEM_VIEW_POOL_CAPACITY = 20;
 
 void *cardexIndexKey;
 
@@ -62,7 +62,6 @@ void *cardexIndexKey;
 - (void)didPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 - (void)dragging;
 - (void)step;
-- (BOOL)shouldDecrementFirstItemIndex;
 - (BOOL)isOutOfBoundsOfCardexView:(UIView *)view;
 - (void)transformItemView:(UIView *)view withOffset:(CGFloat)offset;
 - (void)transformItemView:(UIView *)view
@@ -252,7 +251,7 @@ void *cardexIndexKey;
         [_contentView release];
     }
     _contentView = [[UIView alloc] initWithFrame:self.bounds];
-    _contentView.backgroundColor = [UIColor redColor];
+    _contentView.backgroundColor = [UIColor greenColor];
 
     self.backgroundColor = [UIColor blackColor];
     
@@ -334,7 +333,8 @@ void *cardexIndexKey;
                                reusingView:reusingView];
     if (view) {
         if (!containerView) {
-            containerView = [[UIView alloc] initWithFrame:view.frame];
+            containerView = [[[UIView alloc] initWithFrame:view.frame]
+                             autorelease];
             containerView.backgroundColor = [UIColor orangeColor];
         } else {
             containerView.frame = view.frame;
@@ -359,7 +359,7 @@ void *cardexIndexKey;
 - (BOOL)tryAndLoadItemViewWithItemIndex:(NSUInteger)itemIndex
                             CardexIndex:(NSInteger)cardexIndex
                    dependsOnViewOfIndex:(NSInteger)anotherItemIndex {
-    NSLog(@"loadItemViewWithItemIndex:CardexIndex:");
+    NSLog(@"loadItemViewWithItemIndex:CardexIndex:dependsOnViewOfIndex:");
     UIView *containerView = [self dequeueItemView];
     UIView *reusingView = nil;
     if (containerView) {
@@ -371,7 +371,8 @@ void *cardexIndexKey;
                                reusingView:reusingView];
     if (view) {
         if (!containerView) {
-            containerView = [[UIView alloc] initWithFrame:view.frame];
+            containerView = [[[UIView alloc] initWithFrame:view.frame]
+                             autorelease];
             containerView.backgroundColor = [UIColor orangeColor];
         } else {
             containerView.frame = view.frame;
@@ -403,8 +404,11 @@ void *cardexIndexKey;
 }
 
 - (void)queueItemView:(UIView *)view {
+    NSLog(@"queueItemView:");
     if (view) {
-        [_itemViewPool addObject:view];
+        if (_itemViewPool.count < DEFAULT_ITEM_VIEW_POOL_CAPACITY) {
+            [_itemViewPool addObject:view];
+        }
     }
 }
 
@@ -582,9 +586,9 @@ void *cardexIndexKey;
             }
             if (toRemove.count > 0) {
                 for (NSNumber *n in toRemove) {
-                    UIView *v = [_idxToItemView objectForKey:n];
+                    UIView *v = [[_idxToItemView objectForKey:n] retain];
                     [_idxToItemView removeObjectForKey:n];
-                    [self queueItemView:v];
+                    [self queueItemView:[v autorelease]];
                 }
 
                 // update the cardex indexes
@@ -630,10 +634,10 @@ void *cardexIndexKey;
                 while (i >= 0
                        && _idxToItemView.count > _maxNumberOfVisibleItems) {
                     NSNumber *itemIndex = [NSNumber numberWithInteger:i];
-                    UIView *v = [_idxToItemView objectForKey:itemIndex];
+                    UIView *v = [[_idxToItemView objectForKey:itemIndex] retain];
                     [v removeFromSuperview];
                     [_idxToItemView removeObjectForKey:itemIndex];
-                    [self queueItemView:v];
+                    [self queueItemView:[v autorelease]];
                     i--;
                 }
             }
@@ -685,19 +689,6 @@ void *cardexIndexKey;
     //NSLog(@"isOutOfBoundsOfCardexView:");
     if (view.frame.origin.y > _contentView.frame.size.height
         || view.frame.origin.y <= 0) {
-        return YES;
-    }
-    return NO;
-}
-
-- (BOOL)shouldDecrementFirstItemIndex {
-    NSLog(@"shouldDecrementFirstItemIndex");
-    UIView *testView = [[UIView alloc] initWithFrame:
-                        CGRectMake(0, 0, _itemViewWidth, _itemViewHeight)];
-    [self transformItemView:testView
-                    atIndex:_firstItemViewIndex - 1
-       dependsOnViewOfIndex:_firstItemViewIndex];
-    if (testView.frame.origin.y < _contentView.frame.size.height) {
         return YES;
     }
     return NO;

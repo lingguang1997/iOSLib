@@ -30,6 +30,7 @@
 	// Do any additional setup after loading the view.
     self.cardexView = [[CardexView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_cardexView];
+    [_cardexView release];
 
     //Dummy Data
     self.dataItems = [NSMutableArray arrayWithCapacity:10];
@@ -64,7 +65,8 @@
     }
     UILabel *lbl = (UILabel *)view;
     if (lbl == nil) {
-        lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+        lbl = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 300)]
+               autorelease];
         lbl.textAlignment = NSTextAlignmentCenter;
     } 
     lbl.text = [NSString stringWithFormat:@"%d", [[_dataItems objectAtIndex:index] intValue]];
