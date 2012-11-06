@@ -82,6 +82,10 @@
 //    return CGPointMake(cardexView.frame.size.width / 2, cardexView.frame.size.height / 2);
 //}
 
+- (NSUInteger)firstItemIndexInCardexView:(CardexView *)cardexView {
+    return 10;
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return YES;

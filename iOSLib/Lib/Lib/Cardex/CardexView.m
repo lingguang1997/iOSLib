@@ -133,7 +133,14 @@ void *cardexIndexKey;
 }
 
 - (void)dealloc {
-    [self stopAnimation];
+    @synchronized(self) {
+        if (_timer) {
+            [self stopAnimation];
+            if ([_delegate respondsToSelector:@selector(cardexViewDidEndScrollingAnimation:)]) {
+                [_delegate cardexViewDidEndScrollingAnimation:self];
+            }
+        }
+    }
     [_contentView release];
     [_idxToItemView release];
     [_itemViewPool release];
@@ -451,14 +458,22 @@ void *cardexIndexKey;
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled: {
             _status = DECELERATING;
-            if ([_delegate respondsToSelector:
-                 @selector(cardexViewWillBeginDragging:)]) {
-            }
             CGPoint velocity = [panGestureRecognizer velocityInView:self];
             _startVelocity = SPEED_UP_FACTOR
             * sqrtf(powf(velocity.x, 2) + powf(velocity.y, 2));
             if (velocity.y < 0) {
                 _startVelocity = - _startVelocity;
+            }
+            if ([_delegate respondsToSelector:
+                 @selector(cardexViewDidEndDragging:willDecelerate:)]) {
+                [_delegate cardexViewDidEndDragging:self
+                                     willDecelerate:
+                 _startVelocity == .0f ? NO : YES];
+            }
+            if (_startVelocity != 0) {
+                if ([_delegate respondsToSelector:
+                     @selector(cardexViewWillBeginDecelerating:)]) {
+                }
             }
             [self startDecelerating];
         }
@@ -476,6 +491,13 @@ void *cardexIndexKey;
             if (velocity.y < 0) {
                 _startVelocity = - _startVelocity;
             }
+            @synchronized(self) {
+                if (_timer != nil) {
+                    if ([_delegate respondsToSelector:@selector(cardexViewWillBeginScrollingAnimation:)]) {
+                        [_delegate cardexViewWillBeginScrollingAnimation:self];
+                    }
+                }
+            }
             [self dragging];
         }
             break;
@@ -487,6 +509,9 @@ void *cardexIndexKey;
 - (void)didPress:(UILongPressGestureRecognizer *)longPressGestureRecognizer {
     _status = STOP;
     [self stopAnimation];
+    if ([_delegate respondsToSelector:@selector(cardexViewDidEndScrollingAnimation:)]) {
+        [_delegate cardexViewDidEndScrollingAnimation:self];
+    }
 }
 
 - (void)dragging {
@@ -593,6 +618,9 @@ void *cardexIndexKey;
 
         [self didScroll:(_startVelocity > 0 ? YES : NO)];
 
+        if ([_delegate respondsToSelector:@selector(cardexViewDidScroll:)]) {
+            [_delegate cardexViewDidScroll:self];
+        }
         // check if the scrolling is finished
         switch (_status) {
             case SCROLLING_BY_DRAGGING: {
@@ -619,9 +647,17 @@ void *cardexIndexKey;
         shouldStop = YES;
     }
     if (shouldStop) {
+        if (_status == DECELERATING) {
+            if ([_delegate respondsToSelector:@selector(cardexViewDidEndDecelerating:)]) {
+                [_delegate cardexViewDidEndDecelerating:self];
+            }
+        }
         _lastStepTime = 0;
         _status = STOP;
         [self stopAnimation];
+        if ([_delegate respondsToSelector:@selector(cardexViewDidEndScrollingAnimation:)]) {
+            [_delegate cardexViewDidEndScrollingAnimation:self];
+        }
     }
 }
 
@@ -666,6 +702,10 @@ void *cardexIndexKey;
                                   diff],
                                  OBJC_ASSOCIATION_RETAIN);
     }
+    if ([_delegate respondsToSelector:@selector(cardexViewCurrentItemIndexDidChange:)]) {
+        [_delegate cardexViewCurrentItemIndexDidChange:self];
+    }
+
 }
 
 - (void)step {
@@ -793,13 +833,9 @@ void *cardexIndexKey;
 
 - (void)startDecelerating {
     int distance = [self decelerationDistance];
-    //_scrollOffset = .0f;
     _startTime = CACurrentMediaTime();
     _decelerationDuration = ABS(distance) / ABS(.5f * _startVelocity);
-    if (_scrollOffset != .0f) {
-        [self stopAnimation];
-        [self startAnimation];
-    }
+    [self startAnimation];
 }
 
 @end
