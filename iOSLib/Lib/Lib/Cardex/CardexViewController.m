@@ -40,7 +40,9 @@
     //_cardexView.firstItemViewIndex = 10;
 
     _cardexView.dataSource = self;
-
+    _cardexView.perspective =-0.001;
+    _cardexView.maxNumberOfVisibleItems = 15;
+    _cardexView.backgroundColor = [UIColor blackColor];
     //[_cardexView reloadData];
     //NSLog(@"======%@", _cardexView.contentView.subviews);
 }
@@ -71,12 +73,14 @@
     } 
     lbl.text = [NSString stringWithFormat:@"%d", [[_dataItems objectAtIndex:index] intValue]];
     lbl.tag = index;
+    lbl.backgroundColor = [UIColor colorWithRed:0 green:.5 blue:.5 alpha:.5];
+
     return lbl;
 }
 
-- (CGPoint)firstItemViewCenter:(CardexView *)cardexView {
-    return CGPointMake(cardexView.frame.size.width / 2, cardexView.frame.size.height / 2);
-}
+//- (CGPoint)firstItemViewCenter:(CardexView *)cardexView {
+//    return CGPointMake(cardexView.frame.size.width / 2, cardexView.frame.size.height / 2);
+//}
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
