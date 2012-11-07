@@ -45,6 +45,8 @@
 		CE9DBAC11649AC8C00CD8681 /* Cardex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE58817C164781DF001192A1 /* Cardex.h */; };
 		CE9DBAC21649AC8C00CD8681 /* CardexView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE58817D164781DF001192A1 /* CardexView.h */; };
 		CE9DBAC31649AC8C00CD8681 /* CardexViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE58817F164781DF001192A1 /* CardexViewController.h */; };
+		CEC13BCF164A14FA00BA96D8 /* img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CEC13BCE164A14FA00BA96D8 /* img.jpg */; };
+		CEC13BD2164A1D2600BA96D8 /* img1.png in Resources */ = {isa = PBXBuildFile; fileRef = CEC13BD1164A1D2600BA96D8 /* img1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -102,6 +104,8 @@
 		CE9DBAB21649AC5200CD8681 /* iOSLibForDevice-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOSLibForDevice-Prefix.pch"; sourceTree = "<group>"; };
 		CE9DBAB31649AC5200CD8681 /* iOSLibForDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSLibForDevice.h; sourceTree = "<group>"; };
 		CE9DBAB51649AC5200CD8681 /* iOSLibForDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSLibForDevice.m; sourceTree = "<group>"; };
+		CEC13BCE164A14FA00BA96D8 /* img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img.jpg; sourceTree = "<group>"; };
+		CEC13BD1164A1D2600BA96D8 /* img1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +174,7 @@
 		CE3D1902163ED030002CC447 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				CEC13BCD164A14FA00BA96D8 /* resources */,
 				CE58817B164781DF001192A1 /* Cardex */,
 				CE3D190B163ED030002CC447 /* AppDelegate.h */,
 				CE3D190C163ED030002CC447 /* AppDelegate.m */,
@@ -238,6 +243,15 @@
 				CE9DBAB21649AC5200CD8681 /* iOSLibForDevice-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CEC13BCD164A14FA00BA96D8 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				CEC13BD1164A1D2600BA96D8 /* img1.png */,
+				CEC13BCE164A14FA00BA96D8 /* img.jpg */,
+			);
+			path = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,6 +346,8 @@
 				CE3D190F163ED031002CC447 /* Default.png in Resources */,
 				CE3D1911163ED031002CC447 /* Default@2x.png in Resources */,
 				CE3D1913163ED031002CC447 /* Default-568h@2x.png in Resources */,
+				CEC13BCF164A14FA00BA96D8 /* img.jpg in Resources */,
+				CEC13BD2164A1D2600BA96D8 /* img1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,6 +584,7 @@
 				CE9DBAA71649AC3C00CD8681 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE9DBAB71649AC5200CD8681 /* Build configuration list for PBXNativeTarget "iOSLibForDevice" */ = {
 			isa = XCConfigurationList;
@@ -576,6 +593,7 @@
 				CE9DBAB91649AC5200CD8681 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE9DBACD1649B0CE00CD8681 /* Build configuration list for PBXAggregateTarget "iOSLib" */ = {
 			isa = XCConfigurationList;
@@ -584,6 +602,7 @@
 				CE9DBACF1649B0CE00CD8681 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -341,7 +341,6 @@ void *cardexIndexKey, *itemIndexKey;
         if (!containerView) {
             containerView = [[[UIView alloc] initWithFrame:view.frame]
                              autorelease];
-            containerView.backgroundColor = [UIColor clearColor];
             UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
             tapGR.delegate = self;
             [containerView addGestureRecognizer:tapGR];
@@ -349,7 +348,7 @@ void *cardexIndexKey, *itemIndexKey;
         } else {
             containerView.frame = view.frame;
         }
-        
+        containerView.backgroundColor = [UIColor clearColor];
         _itemViewHeight = view.frame.size.height;
         _itemViewWidth = view.frame.size.width;
         [containerView addSubview:view];
@@ -365,6 +364,7 @@ void *cardexIndexKey, *itemIndexKey;
                                  &itemIndexKey,
                                  [NSNumber numberWithInteger:itemIndex],
                                  OBJC_ASSOCIATION_RETAIN);
+        NSLog(@"%@", objc_getAssociatedObject(containerView, &itemIndexKey));
         return containerView;
     }
     return nil;
@@ -395,7 +395,8 @@ void *cardexIndexKey, *itemIndexKey;
         } else {
             containerView.frame = view.frame;
         }
-        
+        containerView.backgroundColor = [UIColor clearColor];
+
         _itemViewHeight = view.frame.size.height;
         _itemViewWidth = view.frame.size.width;
         view.alpha = .5;
@@ -407,6 +408,8 @@ void *cardexIndexKey, *itemIndexKey;
                                  &itemIndexKey,
                                  [NSNumber numberWithInteger:itemIndex],
                                  OBJC_ASSOCIATION_RETAIN);
+        NSLog(@"%@", objc_getAssociatedObject(containerView, &itemIndexKey));
+
         [containerView addSubview:view];
         [self transformItemView:containerView
                         atIndex:itemIndex
@@ -539,13 +542,22 @@ void *cardexIndexKey, *itemIndexKey;
 }
 
 - (void)didTap:(UITapGestureRecognizer *)tapGestureRecognizer {
-    UIView *v = [tapGestureRecognizer.view.subviews lastObject];
+    UIView *v = ((UIView *)[tapGestureRecognizer.view.subviews lastObject]).superview;
     NSUInteger itemIndex = [objc_getAssociatedObject(v, &itemIndexKey) integerValue];
-    v.backgroundColor = [UIColor orangeColor];
+    v.backgroundColor = [UIColor redColor];
     if ([_delegate respondsToSelector:
          @selector(cardexView:didSelectItemAtIndex:)]) {
         [_delegate cardexView:self didSelectItemAtIndex:itemIndex];
     }
+//    for (UIView *view in _contentView.subviews) {
+//        NSUInteger itemIndex = [objc_getAssociatedObject(view, &itemIndexKey) integerValue];
+//        NSLog(@"%d", itemIndex);
+//    }
+//    NSLog(@"============");
+//    NSArray *sorted = [self getSortedIndexes];
+//    for (NSNumber *n in sorted) {
+//        NSLog(@"%d", [n integerValue]);
+//    }
 }
 
 - (void)dragging {

@@ -42,17 +42,8 @@
     _cardexView.dataSource = self;
     _cardexView.perspective =-0.001;
     _cardexView.maxNumberOfVisibleItems = 15;
-    _cardexView.backgroundColor = [UIColor blackColor];
+    _cardexView.backgroundColor = [UIColor yellowColor];
 }
-
-- (void)a:(UIButton *)aButton {
-    NSLog(@"a");
-}
-
-- (void)b:(UIButton *)bButton {
-    NSLog(@"b");
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -72,17 +63,23 @@
     if (_dataItems == nil) {
         return nil;
     }
-    UILabel *lbl = (UILabel *)view;
-    if (lbl == nil) {
-        lbl = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 300)]
-               autorelease];
+    if (view == nil) {
+        UIImage *image = [UIImage imageNamed:@"img1.png"];
+        UIImageView *imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
+        imageView.frame = CGRectMake(0, 0, 300, 300);
+        UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 300)]
+                        autorelease];
         lbl.textAlignment = NSTextAlignmentCenter;
-    } 
+        view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+        [view addSubview:imageView];
+        [view addSubview:lbl];
+    }
+    
+    UILabel *lbl = [view.subviews lastObject];
     lbl.text = [NSString stringWithFormat:@"%d", [[_dataItems objectAtIndex:index] intValue]];
-    lbl.tag = index;
-    lbl.backgroundColor = [UIColor colorWithRed:0 green:.5 blue:.5 alpha:.5];
-
-    return lbl;
+    lbl.backgroundColor = [UIColor orangeColor];
+    lbl.alpha = .5;
+    return view;
 }
 
 //- (CGPoint)firstItemViewCenter:(CardexView *)cardexView {
