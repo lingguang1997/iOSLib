@@ -21,7 +21,7 @@ static const CGFloat DECELERATION_FACTOR = 30.0f;
 static const NSUInteger DEFAULT_ITEM_VIEW_POOL_CAPACITY = 20;
 static const CGFloat DEFAULT_START_VELOCITY_THRESHHOLD = 30.0f;
 
-void *cardexIndexKey;
+void *cardexIndexKey, *itemIndexKey;
 
 @interface CardexView () {
     enum CardexStatus {
@@ -62,6 +62,7 @@ void *cardexIndexKey;
 - (NSArray *)getSortedIndexes;
 - (void)didPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 - (void)didPress:(UILongPressGestureRecognizer *)longPressGestureRecognizer;
+- (void)didTap:(UITapGestureRecognizer *)tapGestureRecognizer;
 - (void)dragging;
 - (void)step;
 - (BOOL)isOutOfBoundsOfCardexView:(UIView *)view;
@@ -341,6 +342,10 @@ void *cardexIndexKey;
             containerView = [[[UIView alloc] initWithFrame:view.frame]
                              autorelease];
             containerView.backgroundColor = [UIColor clearColor];
+            UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+            tapGR.delegate = self;
+            [containerView addGestureRecognizer:tapGR];
+            [tapGR release];
         } else {
             containerView.frame = view.frame;
         }
@@ -355,6 +360,10 @@ void *cardexIndexKey;
         objc_setAssociatedObject(containerView,
                                  &cardexIndexKey,
                                  [NSNumber numberWithInteger:cardexIndex],
+                                 OBJC_ASSOCIATION_RETAIN);
+        objc_setAssociatedObject(containerView,
+                                 &itemIndexKey,
+                                 [NSNumber numberWithInteger:itemIndex],
                                  OBJC_ASSOCIATION_RETAIN);
         return containerView;
     }
@@ -379,6 +388,10 @@ void *cardexIndexKey;
             containerView = [[[UIView alloc] initWithFrame:view.frame]
                              autorelease];
             containerView.backgroundColor = [UIColor clearColor];
+            UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+            tapGR.delegate = self;
+            [containerView addGestureRecognizer:tapGR];
+            [tapGR release];
         } else {
             containerView.frame = view.frame;
         }
@@ -389,6 +402,10 @@ void *cardexIndexKey;
         objc_setAssociatedObject(containerView,
                                  &cardexIndexKey,
                                  [NSNumber numberWithInteger:cardexIndex],
+                                 OBJC_ASSOCIATION_RETAIN);
+        objc_setAssociatedObject(containerView,
+                                 &itemIndexKey,
+                                 [NSNumber numberWithInteger:itemIndex],
                                  OBJC_ASSOCIATION_RETAIN);
         [containerView addSubview:view];
         [self transformItemView:containerView
@@ -512,6 +529,12 @@ void *cardexIndexKey;
     if ([_delegate respondsToSelector:@selector(cardexViewDidEndScrollingAnimation:)]) {
         [_delegate cardexViewDidEndScrollingAnimation:self];
     }
+}
+
+- (void)didTap:(UITapGestureRecognizer *)tapGestureRecognizer {
+    UIView *v = [tapGestureRecognizer.view.subviews lastObject];
+//    NSUInteger itemIndex = [objc_getAssociatedObject(v, &itemIndexKey) integerValue];
+    v.backgroundColor = [UIColor orangeColor];
 }
 
 - (void)dragging {
