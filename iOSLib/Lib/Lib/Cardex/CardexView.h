@@ -35,7 +35,6 @@
 - (void)cardexViewWillBeginDecelerating:(CardexView *)cardexView;
 - (void)cardexViewDidEndDecelerating:(CardexView *)cardexView;
 
-- (BOOL)cardexView:(CardexView *)cardexView shouldSelectItemAtIndex:(NSInteger)index;
 - (void)cardexView:(CardexView *)cardexView didSelectItemAtIndex:(NSInteger)index;
 
 - (CGFloat)cardexViewItemWidth:(CardexView *)cardexView;

@@ -417,7 +417,14 @@ void *cardexIndexKey, *itemIndexKey;
         } else {
             [_idxToItemView setObject:containerView
                                forKey:[NSNumber numberWithInteger:itemIndex]];
-            [_contentView addSubview:containerView];
+            //[_contentView addSubview:containerView];
+            UIView *anotherView = [_idxToItemView objectForKey:
+                                   [NSNumber numberWithInteger:anotherItemIndex]];
+            if (itemIndex < anotherItemIndex) {
+                [_contentView insertSubview:containerView aboveSubview:anotherView];
+            } else {
+                [_contentView insertSubview:containerView belowSubview:anotherView];
+            }
             NSLog(@"succeed to add item view %d", itemIndex);
             return YES;
         }
@@ -533,8 +540,12 @@ void *cardexIndexKey, *itemIndexKey;
 
 - (void)didTap:(UITapGestureRecognizer *)tapGestureRecognizer {
     UIView *v = [tapGestureRecognizer.view.subviews lastObject];
-//    NSUInteger itemIndex = [objc_getAssociatedObject(v, &itemIndexKey) integerValue];
+    NSUInteger itemIndex = [objc_getAssociatedObject(v, &itemIndexKey) integerValue];
     v.backgroundColor = [UIColor orangeColor];
+    if ([_delegate respondsToSelector:
+         @selector(cardexView:didSelectItemAtIndex:)]) {
+        [_delegate cardexView:self didSelectItemAtIndex:itemIndex];
+    }
 }
 
 - (void)dragging {

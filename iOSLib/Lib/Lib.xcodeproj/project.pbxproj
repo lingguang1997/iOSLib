@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		CE9DBACC1649B0CE00CD8681 /* iOSLib */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = CE9DBACD1649B0CE00CD8681 /* Build configuration list for PBXAggregateTarget "iOSLib" */;
+			buildPhases = (
+				CE9DBAD01649B11400CD8681 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = iOSLib;
+			productName = iOSLib;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		CE3D18FD163ED030002CC447 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3D18FC163ED030002CC447 /* UIKit.framework */; };
 		CE3D18FF163ED030002CC447 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3D18FE163ED030002CC447 /* Foundation.framework */; };
@@ -19,7 +33,46 @@
 		CE3D1928163F0A37002CC447 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3D1927163F0A37002CC447 /* QuartzCore.framework */; };
 		CE588181164781DF001192A1 /* CardexView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE58817E164781DF001192A1 /* CardexView.m */; };
 		CE588182164781DF001192A1 /* CardexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE588180164781DF001192A1 /* CardexViewController.m */; };
+		CE9DBA9E1649AC3C00CD8681 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3D18FE163ED030002CC447 /* Foundation.framework */; };
+		CE9DBAAF1649AC5200CD8681 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3D18FE163ED030002CC447 /* Foundation.framework */; };
+		CE9DBABA1649AC6300CD8681 /* CardexView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE58817E164781DF001192A1 /* CardexView.m */; };
+		CE9DBABB1649AC6300CD8681 /* CardexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE588180164781DF001192A1 /* CardexViewController.m */; };
+		CE9DBABC1649AC6D00CD8681 /* Cardex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE58817C164781DF001192A1 /* Cardex.h */; };
+		CE9DBABD1649AC6D00CD8681 /* CardexView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE58817D164781DF001192A1 /* CardexView.h */; };
+		CE9DBABE1649AC6D00CD8681 /* CardexViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE58817F164781DF001192A1 /* CardexViewController.h */; };
+		CE9DBABF1649AC7D00CD8681 /* CardexView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE58817E164781DF001192A1 /* CardexView.m */; };
+		CE9DBAC01649AC7D00CD8681 /* CardexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE588180164781DF001192A1 /* CardexViewController.m */; };
+		CE9DBAC11649AC8C00CD8681 /* Cardex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE58817C164781DF001192A1 /* Cardex.h */; };
+		CE9DBAC21649AC8C00CD8681 /* CardexView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE58817D164781DF001192A1 /* CardexView.h */; };
+		CE9DBAC31649AC8C00CD8681 /* CardexViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE58817F164781DF001192A1 /* CardexViewController.h */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CE9DBA9B1649AC3C00CD8681 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				CE9DBABC1649AC6D00CD8681 /* Cardex.h in CopyFiles */,
+				CE9DBABD1649AC6D00CD8681 /* CardexView.h in CopyFiles */,
+				CE9DBABE1649AC6D00CD8681 /* CardexViewController.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE9DBAAC1649AC5200CD8681 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				CE9DBAC11649AC8C00CD8681 /* Cardex.h in CopyFiles */,
+				CE9DBAC21649AC8C00CD8681 /* CardexView.h in CopyFiles */,
+				CE9DBAC31649AC8C00CD8681 /* CardexViewController.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CE3D18F8163ED030002CC447 /* Lib.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lib.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +94,14 @@
 		CE58817E164781DF001192A1 /* CardexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardexView.m; sourceTree = "<group>"; };
 		CE58817F164781DF001192A1 /* CardexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardexViewController.h; sourceTree = "<group>"; };
 		CE588180164781DF001192A1 /* CardexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardexViewController.m; sourceTree = "<group>"; };
+		CE9DBA9D1649AC3C00CD8681 /* libiOSLibForSimulator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiOSLibForSimulator.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE9DBAA11649AC3C00CD8681 /* iOSLibForSimulator-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOSLibForSimulator-Prefix.pch"; sourceTree = "<group>"; };
+		CE9DBAA21649AC3C00CD8681 /* iOSLibForSimulator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSLibForSimulator.h; sourceTree = "<group>"; };
+		CE9DBAA41649AC3C00CD8681 /* iOSLibForSimulator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSLibForSimulator.m; sourceTree = "<group>"; };
+		CE9DBAAE1649AC5200CD8681 /* libiOSLibForDevice.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiOSLibForDevice.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE9DBAB21649AC5200CD8681 /* iOSLibForDevice-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOSLibForDevice-Prefix.pch"; sourceTree = "<group>"; };
+		CE9DBAB31649AC5200CD8681 /* iOSLibForDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSLibForDevice.h; sourceTree = "<group>"; };
+		CE9DBAB51649AC5200CD8681 /* iOSLibForDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSLibForDevice.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +116,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CE9DBA9A1649AC3C00CD8681 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE9DBA9E1649AC3C00CD8681 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE9DBAAB1649AC5200CD8681 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE9DBAAF1649AC5200CD8681 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -62,6 +139,8 @@
 			isa = PBXGroup;
 			children = (
 				CE3D1902163ED030002CC447 /* Lib */,
+				CE9DBA9F1649AC3C00CD8681 /* iOSLibForSimulator */,
+				CE9DBAB01649AC5200CD8681 /* iOSLibForDevice */,
 				CE3D18FB163ED030002CC447 /* Frameworks */,
 				CE3D18F9163ED030002CC447 /* Products */,
 			);
@@ -71,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				CE3D18F8163ED030002CC447 /* Lib.app */,
+				CE9DBA9D1649AC3C00CD8681 /* libiOSLibForSimulator.a */,
+				CE9DBAAE1649AC5200CD8681 /* libiOSLibForDevice.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,6 +204,42 @@
 			path = Cardex;
 			sourceTree = "<group>";
 		};
+		CE9DBA9F1649AC3C00CD8681 /* iOSLibForSimulator */ = {
+			isa = PBXGroup;
+			children = (
+				CE9DBAA21649AC3C00CD8681 /* iOSLibForSimulator.h */,
+				CE9DBAA41649AC3C00CD8681 /* iOSLibForSimulator.m */,
+				CE9DBAA01649AC3C00CD8681 /* Supporting Files */,
+			);
+			path = iOSLibForSimulator;
+			sourceTree = "<group>";
+		};
+		CE9DBAA01649AC3C00CD8681 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CE9DBAA11649AC3C00CD8681 /* iOSLibForSimulator-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CE9DBAB01649AC5200CD8681 /* iOSLibForDevice */ = {
+			isa = PBXGroup;
+			children = (
+				CE9DBAB31649AC5200CD8681 /* iOSLibForDevice.h */,
+				CE9DBAB51649AC5200CD8681 /* iOSLibForDevice.m */,
+				CE9DBAB11649AC5200CD8681 /* Supporting Files */,
+			);
+			path = iOSLibForDevice;
+			sourceTree = "<group>";
+		};
+		CE9DBAB11649AC5200CD8681 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CE9DBAB21649AC5200CD8681 /* iOSLibForDevice-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -142,6 +259,40 @@
 			productName = Lib;
 			productReference = CE3D18F8163ED030002CC447 /* Lib.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CE9DBA9C1649AC3C00CD8681 /* iOSLibForSimulator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE9DBAA81649AC3C00CD8681 /* Build configuration list for PBXNativeTarget "iOSLibForSimulator" */;
+			buildPhases = (
+				CE9DBA991649AC3C00CD8681 /* Sources */,
+				CE9DBA9A1649AC3C00CD8681 /* Frameworks */,
+				CE9DBA9B1649AC3C00CD8681 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iOSLibForSimulator;
+			productName = iOSLibForSimulator;
+			productReference = CE9DBA9D1649AC3C00CD8681 /* libiOSLibForSimulator.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		CE9DBAAD1649AC5200CD8681 /* iOSLibForDevice */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE9DBAB71649AC5200CD8681 /* Build configuration list for PBXNativeTarget "iOSLibForDevice" */;
+			buildPhases = (
+				CE9DBAAA1649AC5200CD8681 /* Sources */,
+				CE9DBAAB1649AC5200CD8681 /* Frameworks */,
+				CE9DBAAC1649AC5200CD8681 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iOSLibForDevice;
+			productName = iOSLibForDevice;
+			productReference = CE9DBAAE1649AC5200CD8681 /* libiOSLibForDevice.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -165,6 +316,9 @@
 			projectRoot = "";
 			targets = (
 				CE3D18F7163ED030002CC447 /* Lib */,
+				CE9DBA9C1649AC3C00CD8681 /* iOSLibForSimulator */,
+				CE9DBAAD1649AC5200CD8681 /* iOSLibForDevice */,
+				CE9DBACC1649B0CE00CD8681 /* iOSLib */,
 			);
 		};
 /* End PBXProject section */
@@ -183,6 +337,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CE9DBAD01649B11400CD8681 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -rf ${BUILT_PRODUCTS_DIR}/libiOSLib.a\n\nlipo -create \"${BUILT_PRODUCTS_DIR}/../${CONFIGURATION}-iphonesimulator/libiOSLibForSimulator.a\" \\\n\"${BUILT_PRODUCTS_DIR}/libiOSLibForDevice.a\" -output \\\n\"${BUILT_PRODUCTS_DIR}/libiOSLib.a\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CE3D18F4163ED030002CC447 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -192,6 +362,24 @@
 				CE3D190D163ED030002CC447 /* AppDelegate.m in Sources */,
 				CE588181164781DF001192A1 /* CardexView.m in Sources */,
 				CE588182164781DF001192A1 /* CardexViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE9DBA991649AC3C00CD8681 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE9DBABA1649AC6300CD8681 /* CardexView.m in Sources */,
+				CE9DBABB1649AC6300CD8681 /* CardexViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE9DBAAA1649AC5200CD8681 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE9DBABF1649AC7D00CD8681 /* CardexView.m in Sources */,
+				CE9DBAC01649AC7D00CD8681 /* CardexViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +471,75 @@
 			};
 			name = Release;
 		};
+		CE9DBAA61649AC3C00CD8681 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/iOSLibForSimulator.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOSLibForSimulator/iOSLibForSimulator-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CE9DBAA71649AC3C00CD8681 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/iOSLibForSimulator.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOSLibForSimulator/iOSLibForSimulator-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		CE9DBAB81649AC5200CD8681 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/iOSLibForDevice.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOSLibForDevice/iOSLibForDevice-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CE9DBAB91649AC5200CD8681 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/iOSLibForDevice.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOSLibForDevice/iOSLibForDevice-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		CE9DBACE1649B0CE00CD8681 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CE9DBACF1649B0CE00CD8681 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -303,6 +560,30 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		CE9DBAA81649AC3C00CD8681 /* Build configuration list for PBXNativeTarget "iOSLibForSimulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE9DBAA61649AC3C00CD8681 /* Debug */,
+				CE9DBAA71649AC3C00CD8681 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CE9DBAB71649AC5200CD8681 /* Build configuration list for PBXNativeTarget "iOSLibForDevice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE9DBAB81649AC5200CD8681 /* Debug */,
+				CE9DBAB91649AC5200CD8681 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CE9DBACD1649B0CE00CD8681 /* Build configuration list for PBXAggregateTarget "iOSLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE9DBACE1649B0CE00CD8681 /* Debug */,
+				CE9DBACF1649B0CE00CD8681 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

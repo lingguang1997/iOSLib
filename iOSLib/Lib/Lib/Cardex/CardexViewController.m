@@ -43,9 +43,16 @@
     _cardexView.perspective =-0.001;
     _cardexView.maxNumberOfVisibleItems = 15;
     _cardexView.backgroundColor = [UIColor blackColor];
-    //[_cardexView reloadData];
-    //NSLog(@"======%@", _cardexView.contentView.subviews);
 }
+
+- (void)a:(UIButton *)aButton {
+    NSLog(@"a");
+}
+
+- (void)b:(UIButton *)bButton {
+    NSLog(@"b");
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
