@@ -604,10 +604,10 @@ void *cardexIndexKey, *itemIndexKey;
     } else if (_startVelocity < 0) {
         UIView *firstItemView = [_idxToItemView objectForKey:
                                  [sortedIndexes objectAtIndex:0]];
-        CGFloat diff = ABS(_firstItemViewOrigin.y - firstItemView.frame.origin.y);
-
+        CGFloat diff = firstItemView.frame.origin.y - _firstItemViewOrigin.y;
+        NSAssert(diff >= 0, @"_startVelocity<0, diff < 0");
         NSAssert(offset <= 0, @"offset > 0");
-        if (diff < ABS(offset)) {
+        if (diff < -offset) {
             offset = -diff;
         }
     }
@@ -737,6 +737,17 @@ void *cardexIndexKey, *itemIndexKey;
             }
         }
     }
+    for (NSNumber *itemIndex in _idxToItemView.allKeys) {
+        UIView *v = [[_idxToItemView objectForKey:itemIndex] retain];
+        if ([self isOutOfBoundsOfCardexView:v]) {
+            [v removeFromSuperview];
+            [_idxToItemView removeObjectForKey:itemIndex];
+            [self queueItemView:v];
+        }
+        [v autorelease];
+    }
+
+    
     // update the cardex indexes
     for (NSNumber *itemIndex in _idxToItemView.allKeys) {
         UIView *v = [_idxToItemView objectForKey:itemIndex];
@@ -794,7 +805,9 @@ void *cardexIndexKey, *itemIndexKey;
 - (BOOL)isOutOfBoundsOfCardexView:(UIView *)view {
     //NSLog(@"isOutOfBoundsOfCardexView:");
     if (view.frame.origin.y > _contentView.frame.size.height
-        || view.frame.origin.y <= 0) {
+        || view.frame.origin.y <= 0
+        || isnan(view.frame.origin.y)
+        || isinf(view.frame.origin.y)) {
         return YES;
     }
     return NO;
