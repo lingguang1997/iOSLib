@@ -773,7 +773,8 @@ void *cardexIndexKey, *itemIndexKey;
             CGFloat acceleration = -_startVelocity / _decelerationDuration;
             offset = _startVelocity * time
             + .5f * acceleration * powf(time, 2);
-            if (isnan(offset)) {
+            if (isnan(offset) || isinf(offset)
+                || ABS(offset - (int)offset) >= 1) {
                 offset = .0f;
             }
         }
