@@ -16,5 +16,8 @@
 - (UIView *)cardexView:(CardexView *)cardexView
     viewForItemAtIndex:(NSUInteger)index
            reusingView:view;
+- (NSUInteger)maxNumberOfVisibleItemsInCardexView:(CardexView *)cardexView;
+- (NSUInteger)firstItemIndexInCardexView:(CardexView *)cardexView;
+- (CGPoint)firstItemViewCenter:(CardexView *)cardexView;
 
 @end

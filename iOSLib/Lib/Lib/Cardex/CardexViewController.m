@@ -41,7 +41,7 @@
 
     _cardexView.dataSource = self;
     _cardexView.perspective =-0.001;
-    _cardexView.maxNumberOfVisibleItems = 15;
+    //_cardexView.maxNumberOfVisibleItems = 15;
     _cardexView.backgroundColor = [UIColor yellowColor];
 }
 
@@ -66,11 +66,11 @@
     if (view == nil) {
         UIImage *image = [UIImage imageNamed:@"img1.png"];
         UIImageView *imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
-        imageView.frame = CGRectMake(0, 0, 300, 300);
-        UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 300)]
+        imageView.frame = CGRectMake(0, 0, 500, 500);
+        UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 500, 500)]
                         autorelease];
         lbl.textAlignment = NSTextAlignmentCenter;
-        view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+        view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
         [view addSubview:imageView];
         [view addSubview:lbl];
     }
@@ -82,13 +82,18 @@
     return view;
 }
 
-//- (CGPoint)firstItemViewCenter:(CardexView *)cardexView {
-//    return CGPointMake(cardexView.frame.size.width / 2, cardexView.frame.size.height / 2);
-//}
+- (CGPoint)firstItemViewCenter:(CardexView *)cardexView {
+    return CGPointMake(cardexView.frame.size.width / 2, cardexView.frame.size.height / 2);
+}
 
 - (NSUInteger)firstItemIndexInCardexView:(CardexView *)cardexView {
     return 10;
 }
+
+- (NSUInteger)maxNumberOfVisibleItemsInCardexView:(CardexView *)cardexView {
+    return 5;
+}
+
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

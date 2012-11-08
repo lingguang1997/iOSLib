@@ -290,7 +290,7 @@ void *cardexIndexKey, *itemIndexKey;
     _numberOfItems = [_dataSource numberOfItemsInCardexView:self];
     NSAssert(_numberOfItems > 0, @"The number of items must be positive!");
     if ([_dataSource respondsToSelector:
-         @selector(numberOfVisibleItemsInCardexView:)]) {
+         @selector(maxNumberOfVisibleItemsInCardexView:)]) {
         _maxNumberOfVisibleItems =
         [_dataSource maxNumberOfVisibleItemsInCardexView:self];
         [self validateMaxNumberOfVisibleItems:_maxNumberOfVisibleItems];
@@ -427,6 +427,7 @@ void *cardexIndexKey, *itemIndexKey;
             } else {
                 [_contentView insertSubview:containerView belowSubview:anotherView];
             }
+            NSLog(@"add a new view %@", _idxToItemView);
             NSLog(@"succeed to add item view %d", itemIndex);
             return YES;
         }
@@ -577,14 +578,20 @@ void *cardexIndexKey, *itemIndexKey;
     NSArray *sortedIndexes = [self getSortedIndexes];
     NSAssert(sortedIndexes != nil, @"Sorted Indexes is nil!");
     // restrict the first and last item view's position
+    NSLog(@"================");
+    NSLog(@"startVelocity=%f", _startVelocity);
+    NSLog(@"%@", _idxToItemView);
+
     if (_startVelocity > 0) {
-        UIView *lastItemView = [_idxToItemView objectForKey:
-                                [sortedIndexes lastObject]];
-        CGFloat diff = _firstItemViewOrigin.y - lastItemView.frame.origin.y;
-        
-        NSAssert(offset >= 0, @"offset < 0");
-        if (diff < offset) {
-            offset = diff;
+        NSNumber *itemIndex = [sortedIndexes lastObject];
+        if ([itemIndex integerValue] == _numberOfItems - 1) {
+            UIView *lastItemView = [_idxToItemView objectForKey:itemIndex];
+            CGFloat diff = _firstItemViewOrigin.y - lastItemView.frame.origin.y;
+            
+            NSAssert(offset >= 0, @"offset < 0");
+            if (diff < offset) {
+                offset = diff;
+            }
         }
     } else if (_startVelocity < 0) {
         NSNumber *itemIndex = [sortedIndexes objectAtIndex:0];
