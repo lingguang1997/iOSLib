@@ -646,15 +646,19 @@ void *cardexIndexKey, *itemIndexKey;
             for (int i = maxItemIndex + 1, j = minItemIndex;
                  i < _numberOfItems && try;
                  i++, j++) {
-                if ([self isOutOfBoundsOfCardexView:
-                     [_idxToItemView objectForKey:
-                      [NSNumber numberWithInteger:j]]]) {
-                    try = [self tryAndLoadItemViewWithItemIndex:i
-                                                    CardexIndex:++maxCardexIndex
-                                           dependsOnViewOfIndex:i - 1];
-                } else {
-                    try = NO;
-                }
+                try = [self tryAndLoadItemViewWithItemIndex:i
+                                                CardexIndex:++maxCardexIndex
+                                       dependsOnViewOfIndex:i - 1];
+
+//                if ([self isOutOfBoundsOfCardexView:
+//                     [_idxToItemView objectForKey:
+//                      [NSNumber numberWithInteger:j]]]) {
+//                    try = [self tryAndLoadItemViewWithItemIndex:i
+//                                                    CardexIndex:++maxCardexIndex
+//                                           dependsOnViewOfIndex:i - 1];
+//                } else {
+//                    try = NO;
+//                }
             }
         }
 
@@ -706,6 +710,8 @@ void *cardexIndexKey, *itemIndexKey;
 - (void)didScroll:(BOOL)removeFront {
     NSArray *sortedIndexes = [self getSortedIndexes];
     // remove the item views
+//    NSLog(@"did Scroll: before remove _startVelocity:%f", _startVelocity);
+//    NSLog(@"%@", _idxToItemView);
     if (removeFront) {
         if (_idxToItemView.count > _maxNumberOfVisibleItems) {
             int i = [[sortedIndexes objectAtIndex:0] integerValue];
@@ -713,13 +719,18 @@ void *cardexIndexKey, *itemIndexKey;
                    && _idxToItemView.count > _maxNumberOfVisibleItems) {
                 NSNumber *itemIndex = [NSNumber numberWithInteger:i];
                 UIView *v = [[_idxToItemView objectForKey:itemIndex] retain];
+                if (![self isOutOfBoundsOfCardexView:v]) {
+                    removeFront = NO;
+                    break;
+                }
                 [v removeFromSuperview];
                 [_idxToItemView removeObjectForKey:itemIndex];
                 [self queueItemView:[v autorelease]];
                 i++;
             }
         }
-    } else {
+    }
+    if (!removeFront) {
         if (_idxToItemView.count > _maxNumberOfVisibleItems) {
             int i = [[sortedIndexes lastObject] integerValue];
             while (i >= 0
@@ -743,7 +754,9 @@ void *cardexIndexKey, *itemIndexKey;
         [v autorelease];
     }
 
-    
+//    NSLog(@"did Scroll: after remove _startVelocity:%f", _startVelocity);
+//    NSLog(@"%@", _idxToItemView);
+
     // update the cardex indexes
     for (NSNumber *itemIndex in _idxToItemView.allKeys) {
         UIView *v = [_idxToItemView objectForKey:itemIndex];
@@ -799,7 +812,7 @@ void *cardexIndexKey, *itemIndexKey;
         || ABS(f - (int)f) >= 1) {
         return YES;
     }
-    if (0 < f && f < _contentView.frame.size.height) {
+    if (0 < f + view.frame.size.height && f < _contentView.frame.size.height) {
         return NO;
     }
     return YES;
