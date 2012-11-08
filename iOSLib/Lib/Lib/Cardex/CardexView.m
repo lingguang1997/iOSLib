@@ -188,6 +188,8 @@ void *cardexIndexKey, *itemIndexKey;
 }
 
 - (void)setPerspective:(CGFloat)perspective {
+    NSLog(@"Pls make sure your look down at the \
+          cardexes from the front to the end");
     if (_perspective != perspective) {
         _perspective = perspective;
         if (_dataSource) {
@@ -327,7 +329,6 @@ void *cardexIndexKey, *itemIndexKey;
 
 - (UIView *)loadItemViewWithItemIndex:(NSUInteger)itemIndex
                           CardexIndex:(NSInteger)cardexIndex {
-    //NSLog(@"loadItemViewWithItemIndex:CardexIndex:");
     UIView *containerView = [self dequeueItemView];
     UIView *reusingView = nil;
     if (containerView) {
@@ -346,6 +347,7 @@ void *cardexIndexKey, *itemIndexKey;
             [containerView addGestureRecognizer:tapGR];
             [tapGR release];
         } else {
+            containerView.layer.transform = CATransform3DIdentity;
             containerView.frame = view.frame;
         }
         containerView.backgroundColor = [UIColor clearColor];
@@ -364,7 +366,6 @@ void *cardexIndexKey, *itemIndexKey;
                                  &itemIndexKey,
                                  [NSNumber numberWithInteger:itemIndex],
                                  OBJC_ASSOCIATION_RETAIN);
-        NSLog(@"%@", objc_getAssociatedObject(containerView, &itemIndexKey));
         return containerView;
     }
     return nil;
@@ -373,7 +374,6 @@ void *cardexIndexKey, *itemIndexKey;
 - (BOOL)tryAndLoadItemViewWithItemIndex:(NSUInteger)itemIndex
                             CardexIndex:(NSInteger)cardexIndex
                    dependsOnViewOfIndex:(NSInteger)anotherItemIndex {
-    //NSLog(@"loadItemViewWithItemIndex:CardexIndex:dependsOnViewOfIndex:");
     UIView *containerView = [self dequeueItemView];
     UIView *reusingView = nil;
     if (containerView) {
@@ -393,6 +393,7 @@ void *cardexIndexKey, *itemIndexKey;
             [containerView addGestureRecognizer:tapGR];
             [tapGR release];
         } else {
+            containerView.layer.transform = CATransform3DIdentity;
             containerView.frame = view.frame;
         }
         containerView.backgroundColor = [UIColor clearColor];
@@ -408,8 +409,6 @@ void *cardexIndexKey, *itemIndexKey;
                                  &itemIndexKey,
                                  [NSNumber numberWithInteger:itemIndex],
                                  OBJC_ASSOCIATION_RETAIN);
-        NSLog(@"%@", objc_getAssociatedObject(containerView, &itemIndexKey));
-
         [containerView addSubview:view];
         [self transformItemView:containerView
                         atIndex:itemIndex
@@ -436,7 +435,6 @@ void *cardexIndexKey, *itemIndexKey;
 }
 
 - (void)queueItemView:(UIView *)view {
-    //NSLog(@"queueItemView:");
     if (view) {
         if (_itemViewPool.count < DEFAULT_ITEM_VIEW_POOL_CAPACITY) {
             [_itemViewPool addObject:view];
@@ -446,7 +444,6 @@ void *cardexIndexKey, *itemIndexKey;
 
 
 - (UIView *)dequeueItemView {
-    //NSLog(@"dequeueItemView");
     UIView *view = [[_itemViewPool anyObject] retain];
     if (view) {
         [_itemViewPool removeObject:view];
@@ -455,7 +452,6 @@ void *cardexIndexKey, *itemIndexKey;
 }
 
 - (NSArray *)getSortedIndexes {
-    //NSLog(@"getSortedIndexes");
     return [[[_idxToItemView.allKeys
               sortedArrayUsingComparator:
               ^(NSNumber *obj1, NSNumber *obj2) {
@@ -470,7 +466,6 @@ void *cardexIndexKey, *itemIndexKey;
 }
 
 - (void)didPan:(UIPanGestureRecognizer *)panGestureRecognizer {
-    //NSLog(@"didPan:");
     switch (panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
             _status = READY_TO_SCROLL;
@@ -549,19 +544,9 @@ void *cardexIndexKey, *itemIndexKey;
          @selector(cardexView:didSelectItemAtIndex:)]) {
         [_delegate cardexView:self didSelectItemAtIndex:itemIndex];
     }
-//    for (UIView *view in _contentView.subviews) {
-//        NSUInteger itemIndex = [objc_getAssociatedObject(view, &itemIndexKey) integerValue];
-//        NSLog(@"%d", itemIndex);
-//    }
-//    NSLog(@"============");
-//    NSArray *sorted = [self getSortedIndexes];
-//    for (NSNumber *n in sorted) {
-//        NSLog(@"%d", [n integerValue]);
-//    }
 }
 
 - (void)dragging {
-    //NSLog(@"dragging");
     if (_scrollOffset != .0f) {
         _startTime = CACurrentMediaTime();
         [self startAnimation];
@@ -602,19 +587,20 @@ void *cardexIndexKey, *itemIndexKey;
             offset = diff;
         }
     } else if (_startVelocity < 0) {
-        UIView *firstItemView = [_idxToItemView objectForKey:
-                                 [sortedIndexes objectAtIndex:0]];
-        CGFloat diff = firstItemView.frame.origin.y - _firstItemViewOrigin.y;
-        NSAssert(diff >= 0, @"_startVelocity<0, diff < 0");
-        NSAssert(offset <= 0, @"offset > 0");
-        if (diff < -offset) {
-            offset = -diff;
+        NSNumber *itemIndex = [sortedIndexes objectAtIndex:0];
+        if ([itemIndex integerValue] == 0) {
+            UIView *firstItemView = [_idxToItemView objectForKey:itemIndex];
+            CGFloat diff = firstItemView.frame.origin.y - _firstItemViewOrigin.y;
+            NSAssert(diff >= 0, @"_startVelocity<0, diff < 0");
+            NSAssert(offset <= 0, @"offset > 0");
+            if (diff < -offset) {
+                offset = -diff;
+            }
         }
     }
     BOOL shouldStop = NO;
     CGFloat oldScrollOffset = 0;
     if (offset != .0f) {
-        NSLog(@"in scrollByOffset Deceleration offset %f", offset);
         int minItemIndex = _numberOfItems;
         int maxItemIndex = -1;
         // scroll each item view
@@ -628,6 +614,7 @@ void *cardexIndexKey, *itemIndexKey;
                 maxItemIndex = [n integerValue];
             }
         }
+        
         NSAssert(minItemIndex != _numberOfItems,
                  @"Can't get minItemIndex when scrolling!");
         // check if need to add item views
@@ -655,9 +642,11 @@ void *cardexIndexKey, *itemIndexKey;
                 if ([self isOutOfBoundsOfCardexView:
                      [_idxToItemView objectForKey:
                       [NSNumber numberWithInteger:j]]]) {
-                         try = [self tryAndLoadItemViewWithItemIndex:i
-                                                         CardexIndex:++maxCardexIndex
-                                                dependsOnViewOfIndex:i - 1];
+                    try = [self tryAndLoadItemViewWithItemIndex:i
+                                                    CardexIndex:++maxCardexIndex
+                                           dependsOnViewOfIndex:i - 1];
+                } else {
+                    try = NO;
                 }
             }
         }
@@ -766,7 +755,6 @@ void *cardexIndexKey, *itemIndexKey;
 }
 
 - (void)step {
-    //NSLog(@"step");
     NSTimeInterval currentTime = CACurrentMediaTime();
     if (_lastStepTime == 0) {
         _lastStepTime = _startTime;
@@ -775,7 +763,6 @@ void *cardexIndexKey, *itemIndexKey;
     switch (_status) {
         case SCROLLING_BY_DRAGGING: {
             // Uniform rectilinear motion
-            NSLog(@"SCROLLING_BY_DRAGGING");
             offset = _startVelocity * (currentTime - _lastStepTime);
         }
             break;
@@ -786,10 +773,6 @@ void *cardexIndexKey, *itemIndexKey;
             CGFloat acceleration = -_startVelocity / _decelerationDuration;
             offset = _startVelocity * time
             + .5f * acceleration * powf(time, 2);
-            NSLog(@"in step acceleration %f", acceleration);
-
-            NSLog(@"in step Deceleration offset %f", offset);
-            NSLog(@"in step startVelocity %f", _startVelocity);
             if (isnan(offset)) {
                 offset = .0f;
             }
@@ -803,18 +786,18 @@ void *cardexIndexKey, *itemIndexKey;
 }
 
 - (BOOL)isOutOfBoundsOfCardexView:(UIView *)view {
-    //NSLog(@"isOutOfBoundsOfCardexView:");
-    if (view.frame.origin.y > _contentView.frame.size.height
-        || view.frame.origin.y <= 0
-        || isnan(view.frame.origin.y)
-        || isinf(view.frame.origin.y)) {
+    CGFloat f = view.frame.origin.y;
+    if (isnan(f) || isinf(f)
+        || ABS(f - (int)f) >= 1) {
         return YES;
     }
-    return NO;
+    if (0 < f && f < _contentView.frame.size.height) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)transformItemView:(UIView *)view atIndex:(NSInteger)index {
-    //NSLog(@"transformItemView:atIndex:");
     if ([_dataSource respondsToSelector:@selector(firstItemViewCenter:)]) {
         view.frame = CGRectMake(0, 0,
                                 _itemViewWidth, _itemViewHeight);
@@ -837,7 +820,6 @@ void *cardexIndexKey, *itemIndexKey;
 
 
 - (void)transformItemView:(UIView *)view withOffset:(CGFloat)offset {
-    //NSLog(@"transformItemView:withOffset:");
     if ([_dataSource respondsToSelector:@selector(firstItemViewCenter:)]) {
         view.frame = CGRectMake(0, 0,
                                 _itemViewWidth, _itemViewHeight);
@@ -857,7 +839,6 @@ void *cardexIndexKey, *itemIndexKey;
 - (void)transformItemView:(UIView *)view
                   atIndex:(NSInteger)index
      dependsOnViewOfIndex:(NSInteger)anIndex {
-    //NSLog(@"transformItemView:atIndex:dependsOnViewOfIndex:");
     UIView *dv = [_idxToItemView objectForKey:
                   [NSNumber numberWithInteger:anIndex]];
     if (dv) {
@@ -880,7 +861,8 @@ void *cardexIndexKey, *itemIndexKey;
         view.layer.transform = transform;
     } else {
         NSAssert(dv != nil, @"transformItemView:atIndex:dependsOnViewOfIndex:\
-                 dependent view is nil!");
+                 dependent view is nil!, itemIndex=%d, anotherIndex=%d",
+                 index, anIndex);
     }
 }
 

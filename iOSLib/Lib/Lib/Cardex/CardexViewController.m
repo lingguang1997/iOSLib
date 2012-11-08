@@ -66,11 +66,11 @@
     if (view == nil) {
         UIImage *image = [UIImage imageNamed:@"img1.png"];
         UIImageView *imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
-        imageView.frame = CGRectMake(0, 0, 300, 300);
-        UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 300)]
+        imageView.frame = CGRectMake(0, 0, 500, 500);
+        UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 500, 500)]
                         autorelease];
         lbl.textAlignment = NSTextAlignmentCenter;
-        view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+        view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
         [view addSubview:imageView];
         [view addSubview:lbl];
     }
