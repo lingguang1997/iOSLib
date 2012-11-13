@@ -7,7 +7,8 @@
 //
 @class CardexView;
 
-@interface CardexViewController : UIViewController <CardexDataSource>
+@interface CardexViewController : UIViewController <CardexDataSource,
+                                                    CardexDelegate>
 
 @property (strong, nonatomic) CardexView *cardexView;
 @property (strong, nonatomic) NSMutableArray *dataItems;
@@ -19,5 +20,21 @@
 - (NSUInteger)maxNumberOfVisibleItemsInCardexView:(CardexView *)cardexView;
 - (NSUInteger)firstItemIndexInCardexView:(CardexView *)cardexView;
 - (CGPoint)firstItemViewCenter:(CardexView *)cardexView;
+
+- (void)cardexViewWillBeginScrollingAnimation:(CardexView *)cardexView;
+- (void)cardexViewDidEndScrollingAnimation:(CardexView *)cardexView;
+- (void)cardexViewDidScroll:(CardexView *)cardexView;
+- (void)cardexViewCurrentItemIndexDidChange:(CardexView *)cardexView;
+- (void)cardexViewWillBeginDragging:(CardexView *)cardexView;
+- (void)cardexViewDidEndDragging:(CardexView *)cardexView
+                  willDecelerate:(BOOL)decelerate;
+- (void)cardexViewWillBeginDecelerating:(CardexView *)cardexView;
+- (void)cardexViewDidEndDecelerating:(CardexView *)cardexView;
+
+- (void)cardexView:(CardexView *)cardexView didSelectItemAtIndex:(NSInteger)index;
+
+- (CGFloat)cardexViewItemWidth:(CardexView *)cardexView;
+- (CATransform3D)cardexView:(CardexView *)cardexView itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform;
+
 
 @end

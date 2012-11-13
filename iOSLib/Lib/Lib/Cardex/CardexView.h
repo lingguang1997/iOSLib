@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 lingguang1997. All rights reserved.
 //
 
+#define DEBUG_CARDEX 1
+
 @class CardexView;
 
 @protocol CardexDataSource <NSObject>

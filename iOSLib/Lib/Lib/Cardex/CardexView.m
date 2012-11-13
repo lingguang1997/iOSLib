@@ -20,6 +20,7 @@ static const CGFloat DECELERATION_FACTOR = 30.0f;
 
 static const NSUInteger DEFAULT_ITEM_VIEW_POOL_CAPACITY = 20;
 static const CGFloat DEFAULT_START_VELOCITY_THRESHHOLD = 30.0f;
+static const CGFloat DEFAULT_MAX_SCROLL_OFFSET = 200.0f;
 
 void *cardexIndexKey, *itemIndexKey;
 
@@ -188,8 +189,10 @@ void *cardexIndexKey, *itemIndexKey;
 }
 
 - (void)setPerspective:(CGFloat)perspective {
+#if DEBUG_CARDEX
     NSLog(@"Pls make sure your look down at the \
           cardexes from the front to the end");
+#endif
     if (_perspective != perspective) {
         _perspective = perspective;
         if (_dataSource) {
@@ -415,7 +418,9 @@ void *cardexIndexKey, *itemIndexKey;
            dependsOnViewOfIndex:anotherItemIndex];
         if ([self isOutOfBoundsOfCardexView:containerView]) {
             [self queueItemView:containerView];
+#if DEBUG_CARDEX
             NSLog(@"fail to add item view %d", itemIndex);
+#endif
         } else {
             [_idxToItemView setObject:containerView
                                forKey:[NSNumber numberWithInteger:itemIndex]];
@@ -427,8 +432,10 @@ void *cardexIndexKey, *itemIndexKey;
             } else {
                 [_contentView insertSubview:containerView belowSubview:anotherView];
             }
+#if DEBUG_CARDEX
             NSLog(@"add a new view %@", _idxToItemView);
             NSLog(@"succeed to add item view %d", itemIndex);
+#endif
             return YES;
         }
     }
@@ -487,6 +494,10 @@ void *cardexIndexKey, *itemIndexKey;
             if (velocity.y < 0) {
                 _startVelocity = - _startVelocity;
             }
+#if DEBUG_CARDEX
+            NSLog(@"_startVelocity DECELERATING  = %f", _startVelocity);
+#endif
+
             if ([_delegate respondsToSelector:
                  @selector(cardexViewDidEndDragging:willDecelerate:)]) {
                 [_delegate cardexViewDidEndDragging:self
@@ -514,9 +525,13 @@ void *cardexIndexKey, *itemIndexKey;
             if (velocity.y < 0) {
                 _startVelocity = - _startVelocity;
             }
+#if DEBUG_CARDEX
+            NSLog(@"_startVelocity SCROLLING_BY_DRAGGING  = %f", _startVelocity);
+#endif
             @synchronized(self) {
-                if (_timer != nil) {
-                    if ([_delegate respondsToSelector:@selector(cardexViewWillBeginScrollingAnimation:)]) {
+                if (_timer == nil) {
+                    if ([_delegate respondsToSelector:
+                         @selector(cardexViewWillBeginScrollingAnimation:)]) {
                         [_delegate cardexViewWillBeginScrollingAnimation:self];
                     }
                 }
@@ -530,10 +545,15 @@ void *cardexIndexKey, *itemIndexKey;
 }
 
 - (void)didPress:(UILongPressGestureRecognizer *)longPressGestureRecognizer {
-    _status = STOP;
-    [self stopAnimation];
-    if ([_delegate respondsToSelector:@selector(cardexViewDidEndScrollingAnimation:)]) {
-        [_delegate cardexViewDidEndScrollingAnimation:self];
+    NSLog(@"didPress");
+    @synchronized(self) {
+        if (_timer != nil) {
+            _status = STOP;
+            [self stopAnimation];
+            if ([_delegate respondsToSelector:@selector(cardexViewDidEndScrollingAnimation:)]) {
+                [_delegate cardexViewDidEndScrollingAnimation:self];
+            }
+        }
     }
 }
 
@@ -578,9 +598,10 @@ void *cardexIndexKey, *itemIndexKey;
     NSArray *sortedIndexes = [self getSortedIndexes];
     NSAssert(sortedIndexes != nil, @"Sorted Indexes is nil!");
     // restrict the first and last item view's position
-    NSLog(@"================");
+#if DEBUG_CARDEX
     NSLog(@"startVelocity=%f", _startVelocity);
     NSLog(@"%@", _idxToItemView);
+#endif
 
     if (_startVelocity > 0) {
         NSNumber *itemIndex = [sortedIndexes lastObject];
@@ -598,10 +619,17 @@ void *cardexIndexKey, *itemIndexKey;
         if ([itemIndex integerValue] == 0) {
             UIView *firstItemView = [_idxToItemView objectForKey:itemIndex];
             CGFloat diff = firstItemView.frame.origin.y - _firstItemViewOrigin.y;
-            NSAssert(diff >= 0, @"_startVelocity<0, diff < 0");
-            NSAssert(offset <= 0, @"offset > 0");
-            if (diff < -offset) {
-                offset = -diff;
+//            NSAssert(diff >= 0, @"_startVelocity<0, diff < 0");
+//            NSAssert(offset <= 0, @"offset > 0");
+//            if (diff < -offset) {
+//                offset = -diff;
+//            }
+            if (diff >= 0) {
+                if (diff < -offset) {
+                    offset =  - diff;
+                }
+            } else {
+                offset = diff;
             }
         }
     }
@@ -611,6 +639,9 @@ void *cardexIndexKey, *itemIndexKey;
         int minItemIndex = _numberOfItems;
         int maxItemIndex = -1;
         // scroll each item view
+#if DEBUG_CARDEX
+        NSLog(@"offset=%f", offset);
+#endif
         for (NSNumber *n in _idxToItemView.allKeys) {
             UIView *v = [_idxToItemView objectForKey:n];
             [self transformItemView:v withOffset:offset];
@@ -621,7 +652,11 @@ void *cardexIndexKey, *itemIndexKey;
                 maxItemIndex = [n integerValue];
             }
         }
-        
+#if DEBUG_CARDEX
+        NSLog(@"startVelocity=%f", _startVelocity);
+        NSLog(@"%@", _idxToItemView);
+#endif
+       
         NSAssert(minItemIndex != _numberOfItems,
                  @"Can't get minItemIndex when scrolling!");
         // check if need to add item views
@@ -700,6 +735,7 @@ void *cardexIndexKey, *itemIndexKey;
         }
         _lastStepTime = 0;
         _status = STOP;
+        NSLog(@"scrollByOffset");
         [self stopAnimation];
         if ([_delegate respondsToSelector:@selector(cardexViewDidEndScrollingAnimation:)]) {
             [_delegate cardexViewDidEndScrollingAnimation:self];
@@ -712,6 +748,9 @@ void *cardexIndexKey, *itemIndexKey;
     // remove the item views
 //    NSLog(@"did Scroll: before remove _startVelocity:%f", _startVelocity);
 //    NSLog(@"%@", _idxToItemView);
+#if DEBUG_CARDEX
+        NSLog(@"didScroll break point 1");
+#endif
     if (removeFront) {
         if (_idxToItemView.count > _maxNumberOfVisibleItems) {
             int i = [[sortedIndexes objectAtIndex:0] integerValue];
@@ -721,17 +760,30 @@ void *cardexIndexKey, *itemIndexKey;
                 UIView *v = [[_idxToItemView objectForKey:itemIndex] retain];
                 if (![self isOutOfBoundsOfCardexView:v]) {
                     removeFront = NO;
+#if DEBUG_CARDEX
+                    NSLog(@"didScroll break point 2");
+#endif
                     break;
                 }
                 [v removeFromSuperview];
                 [_idxToItemView removeObjectForKey:itemIndex];
+#if DEBUG_CARDEX
+                NSLog(@"removed v itemIndex %d", [itemIndex integerValue]);
+#endif
                 [self queueItemView:[v autorelease]];
                 i++;
             }
         }
     }
+#if DEBUG_CARDEX
+    NSLog(@"didScroll break point 3");
+#endif
     if (!removeFront) {
         if (_idxToItemView.count > _maxNumberOfVisibleItems) {
+#if DEBUG_CARDEX
+            NSLog(@"didScroll break point 4");
+#endif
+
             int i = [[sortedIndexes lastObject] integerValue];
             while (i >= 0
                    && _idxToItemView.count > _maxNumberOfVisibleItems) {
@@ -739,20 +791,34 @@ void *cardexIndexKey, *itemIndexKey;
                 UIView *v = [[_idxToItemView objectForKey:itemIndex] retain];
                 [v removeFromSuperview];
                 [_idxToItemView removeObjectForKey:itemIndex];
+#if DEBUG_CARDEX
+                NSLog(@"removed v itemIndex %d", [itemIndex integerValue]);
+#endif
                 [self queueItemView:[v autorelease]];
                 i--;
             }
         }
     }
+#if DEBUG_CARDEX
+    NSLog(@"didScroll break point 5");
+#endif
+
+    NSLog(@"%@", _idxToItemView);
     for (NSNumber *itemIndex in _idxToItemView.allKeys) {
         UIView *v = [[_idxToItemView objectForKey:itemIndex] retain];
         if ([self isOutOfBoundsOfCardexView:v]) {
             [v removeFromSuperview];
             [_idxToItemView removeObjectForKey:itemIndex];
+#if DEBUG_CARDEX
+            NSLog(@"removed v itemIndex %d", [itemIndex integerValue]);
+#endif
             [self queueItemView:v];
         }
         [v autorelease];
     }
+#if DEBUG_CARDEX
+    NSLog(@"didScroll break point 6");
+#endif
 
 //    NSLog(@"did Scroll: after remove _startVelocity:%f", _startVelocity);
 //    NSLog(@"%@", _idxToItemView);
@@ -775,6 +841,9 @@ void *cardexIndexKey, *itemIndexKey;
 }
 
 - (void)step {
+#if DEBUG_CARDEX
+    NSLog(@"================");
+#endif
     NSTimeInterval currentTime = CACurrentMediaTime();
     if (_lastStepTime == 0) {
         _lastStepTime = _startTime;
@@ -784,6 +853,12 @@ void *cardexIndexKey, *itemIndexKey;
         case SCROLLING_BY_DRAGGING: {
             // Uniform rectilinear motion
             offset = _startVelocity * (currentTime - _lastStepTime);
+#if DEBUG_CARDEX
+            NSLog(@"_startVelocity %f", _startVelocity);
+            NSLog(@"dagging offset %f", offset);
+            NSLog(@"currentTime %g", currentTime);
+            NSLog(@"_lastStepTime %g", _lastStepTime);
+#endif
         }
             break;
         case DECELERATING: {
@@ -797,13 +872,28 @@ void *cardexIndexKey, *itemIndexKey;
                 || ABS(offset - (int)offset) >= 1) {
                 offset = .0f;
             }
+#if DEBUG_CARDEX
+            NSLog(@"time %f", time);
+            NSLog(@"acceleration %f", acceleration);
+            NSLog(@"deceleration offset %f", offset);
+#endif
         }
             break;
         default:
             break;
     }
     _lastStepTime = currentTime;
+    if (ABS(DEFAULT_MAX_SCROLL_OFFSET) < ABS(offset)) {
+        if (offset >= 0) {
+            offset = DEFAULT_MAX_SCROLL_OFFSET;
+        } else {
+            offset = - DEFAULT_MAX_SCROLL_OFFSET;
+        }
+    }
     [self scrollByOffset:offset];
+#if DEBUG_CARDEX
+    NSLog(@"================");
+#endif
 }
 
 - (BOOL)isOutOfBoundsOfCardexView:(UIView *)view {

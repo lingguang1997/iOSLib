@@ -40,6 +40,7 @@
     //_cardexView.firstItemViewIndex = 10;
 
     _cardexView.dataSource = self;
+    _cardexView.delegate = self;
     _cardexView.perspective =-0.001;
     //_cardexView.maxNumberOfVisibleItems = 15;
     _cardexView.backgroundColor = [UIColor yellowColor];
@@ -66,11 +67,11 @@
     if (view == nil) {
         UIImage *image = [UIImage imageNamed:@"img1.png"];
         UIImageView *imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
-        imageView.frame = CGRectMake(0, 0, 500, 500);
-        UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 500, 500)]
+        imageView.frame = CGRectMake(0, 0, 300, 300);
+        UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 300)]
                         autorelease];
         lbl.textAlignment = NSTextAlignmentCenter;
-        view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
+        view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
         [view addSubview:imageView];
         [view addSubview:lbl];
     }
@@ -94,10 +95,59 @@
     return 5;
 }
 
-
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return YES;
 }
+
+
+
+- (void)cardexViewWillBeginScrollingAnimation:(CardexView *)cardexView {
+    //NSLog(@"cardexViewWillBeginScrollingAnimation:");
+}
+
+- (void)cardexViewDidEndScrollingAnimation:(CardexView *)cardexView {
+    //NSLog(@"cardexViewDidEndScrollingAnimation:");
+}
+
+- (void)cardexViewDidScroll:(CardexView *)cardexView {
+    //NSLog(@"cardexViewDidScroll:");
+}
+
+- (void)cardexViewCurrentItemIndexDidChange:(CardexView *)cardexView {
+    //NSLog(@"cardexViewCurrentItemIndexDidChange:");
+}
+
+- (void)cardexViewWillBeginDragging:(CardexView *)cardexView {
+    //NSLog(@"cardexViewWillBeginDragging:");
+}
+
+- (void)cardexViewDidEndDragging:(CardexView *)cardexView
+                  willDecelerate:(BOOL)decelerate {
+    NSLog(@"cardexViewDidEndDragging:willDecelerate:");
+}
+
+- (void)cardexViewWillBeginDecelerating:(CardexView *)cardexView {
+    
+}
+
+- (void)cardexViewDidEndDecelerating:(CardexView *)cardexView {
+    
+}
+
+- (void)cardexView:(CardexView *)cardexView
+didSelectItemAtIndex:(NSInteger)index {
+    
+}
+
+- (CGFloat)cardexViewItemWidth:(CardexView *)cardexView {
+    
+}
+- (CATransform3D)cardexView:(CardexView *)cardexView
+     itemTransformForOffset:(CGFloat)offset
+              baseTransform:(CATransform3D)transform {
+    
+}
+
+
 
 @end
